@@ -21,14 +21,15 @@ int	get_next_line(int fd, char **line)
 	ssize_t	nread;
 	ssize_t	allread;
 	int		findn;
-	char	next_line[BUFFER_SIZE + 1];
+	char	buf[BUFFER_SIZE + 1];
 
 	i = 0;
 	nread = 0;
 	allread = 0;
 	findn = 0;
-	if (BUFFER_SIZE == 0)
-	while ((nread = read(fd, next_line, BUFFER_SIZE)) != 0)
+	if (BUFFER_SIZE <= 0)
+		return (-1);
+	while ((nread = read(fd, next, BUFFER_SIZE)) != 0)
 	{
 		if (nread == -1)
 			return (-1);
