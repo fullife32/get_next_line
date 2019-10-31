@@ -15,35 +15,70 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-int	get_next_line(int fd, char **line)
+void	ft_bzero(void *s, size_t n)
 {
-	ssize_t	i;
-	ssize_t	nread;
-	ssize_t	allread;
-	int		findn;
-	char	buf[BUFFER_SIZE + 1];
+	while (n-- != 0)
+		((char *)s)[n] = 0;
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t i;
 
 	i = 0;
-	nread = 0;
-	allread = 0;
-	findn = 0;
-	if (BUFFER_SIZE <= 0)
-		return (-1);
-	while ((nread = read(fd, next, BUFFER_SIZE)) != 0)
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	len = (s1 ? ft_strlen(s1) + ft_strlen(s2) : ft_strlen(s2));
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (s1 && s1[i] != '\0')
 	{
-		if (nread == -1)
-			return (-1);
-		nread += allread;
-		next_line[nread] = '\0';
-	}
-	if (!(*line = malloc(sizeof(char) * (allread + 1))))
-		return (0);
-	while (next_line[i] != '\0')
-	{
-		*line[i] = next_line[i];
+		str[i] = s1[i];
 		i++;
 	}
-	*line[i] = '\0';
+	while (s2[j] != '\0')
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
+}
+
+int	get_next_line(int fd, char **line)
+{
+	ssize_t	nread;
+	char	buf[BUFFER_SIZE + 1];
+
+	nread = 1;
+	*line = NULL;
+	if (BUFFER_SIZE <= 0)
+		return (-1);
+	ft_bzero(buf, BUFFER_SIZE + 1);
+	nread = read(fd, buf, BUFFER_SIZE);
+	//while ((nread = read(fd, buf, BUFFER_SIZE)) != 0)
+	//{
+		if (nread == -1)
+		{
+			if (*line != NULL)
+				free(*line);
+			return (-1);
+		}
+		if (!(*line = ft_strjoin(*line, buf)))
+			return (-1);
+	//}
 	return (0);
 }
 
