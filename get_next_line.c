@@ -60,15 +60,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 int	get_next_line(int fd, char **line)
 {
 	ssize_t	nread;
-	char	buf[BUFFER_SIZE + 1];
+	char	buffer[BUFFER_SIZE + 1];
+	char	*linetmp;
 
 	nread = 1;
+	linetmp = NULL;
 	*line = NULL;
 	if (BUFFER_SIZE <= 0)
-		return (-1);
+		return (0);
 	ft_bzero(buf, BUFFER_SIZE + 1);
 	nread = read(fd, buf, BUFFER_SIZE);
-	//while ((nread = read(fd, buf, BUFFER_SIZE)) != 0)
+	while ((nread != 0 && )
 	//{
 		if (nread == -1)
 		{
