@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:20:16 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/07 16:40:15 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/07 18:53:38 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct	s_list
 }				t_list;
 
 size_t			ft_strlen(const char *s);
-char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strdup(const char *s1);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strmove(char *dst, char *src, size_t len);
 int				isn(char *str);
 int				get_next_line(int fd, char **line);
 

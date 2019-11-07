@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:15:23 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/07 16:39:20 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/07 18:53:17 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ size_t	ft_strlen(const char *s)
 	size_t i;
 
 	i = 0;
-	while (s[i] != '\0' && s[i] != '\n')
+	while (s[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -39,30 +39,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[i] = s1[i];
 		i++;
 	}
-	while (s2[j] != '\0' && s2[j] != '\n')
+	while (s2 && s2[j] != '\n' && s2[j] != '\0')
 	{
 		str[i + j] = s2[j];
 		j++;
 	}
 	str[i + j] = '\0';
+	if (s1)
+		free(s1);
 	return (str);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strmove(char *dst, char *src, size_t len)
 {
-	char	*str;
-	size_t	i;
+	size_t i;
 
-	if (!(str = malloc(sizeof(char) * (ft_strlen(s1) + 1))))
-		return (NULL);
 	i = 0;
-	while (s1[i] != '\n' && s1[i] != '\0')
+	while (i < len)
 	{
-		str[i] = s1[i];
+		dst[i] = src[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	return (dst);
 }
 
 int	isn(char *str)
@@ -73,8 +71,8 @@ int	isn(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
-			return (1);
+			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
