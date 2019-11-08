@@ -30,37 +30,38 @@ int	get_next_line(int fd, char **line)
 	nread = 1;
 	buff = NULL;
 	*line = NULL;
-	if (BUFFER_SIZE <= 0 || line == NULL)
+	if (BUFFER_SIZE <= 0 || line == NULL || fd < 0)
 		return (-1);
+	if (isn(tmp.line) != -1)
+		nread = -1;
+	ft_memmove(tmp.line, tmp.line + isn(tmp.line) + 1, ft_strlen(tmp.line + isn(tmp.line)) + 1);
+	if (!(*line = ft_strjoin(*line, tmp.line)))
+		return (clean(buff, *line));
 	while (nread != -1)
 	{
 		if ((nread = read(fd, tmp.line, BUFFER_SIZE)) == -1)
 			return (clean(buff, *line));
 		tmp.line[nread] = '\0';
-		if (!(*line = ft_strjoin(*line, tmp.line)))
-			return (clean(buff, *line));
 		if (nread == 0)
 			return (0);
-		if (isn(tmp.line) != -1)
-			nread = -1;
+		if (!(*line = ft_strjoin(*line, tmp.line)))
+			return (clean(buff, *line));
 	}
-	ft_strmove(*line, *line + isn(*line), ft_strlen(*line + isn(*line)));
 	return (1);
 }
 
 int main(int ac, char **av)
 {
 	(void)ac;
-	int i = 0;
+	int i = 1;
 	char *line = NULL;
 	int fd = open(av[1], O_RDONLY);
 
-	while (i < 10)
+	while (i != 0)
 	{
-		get_next_line(fd, &line);
+		i = get_next_line(fd, &line);
 		printf("%s\n", line);
 		free(line);
-		i++;
 	}
 	close(fd);
 	return (0);

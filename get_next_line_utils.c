@@ -50,16 +50,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_strmove(char *dst, char *src, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t i;
+	unsigned char	*dest;
+	unsigned char	*source;
 
-	i = 0;
-	while (i < len)
-	{
-		dst[i] = src[i];
-		i++;
-	}
+	dest = dst;
+	source = (unsigned char *)src;
+	while (len-- != 0)
+		dest[len] = source[len];
 	return (dst);
 }
 
