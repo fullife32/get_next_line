@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:15:23 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/07 18:53:17 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/09 09:09:16 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,18 @@ char	*ft_strjoin(char *s1, char *s2)
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
+	int				i;
 	unsigned char	*dest;
 	unsigned char	*source;
 
+	i = 0;
 	dest = dst;
 	source = (unsigned char *)src;
 	while (len-- != 0)
-		dest[len] = source[len];
+	{
+		dest[i] = source[i];
+		i++;
+	}
 	return (dst);
 }
 
