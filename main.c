@@ -13,7 +13,7 @@ int main(int ac, char **av)
 		printf("%s\n", line);
 		free(line);
 	}
-	printf("%d\n", i);
 	close(fd);
+	while (1);
 	return (0);
 }

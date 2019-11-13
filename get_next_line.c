@@ -29,8 +29,11 @@ int	get_next_line(int fd, char **line)
 	if (line == NULL || fd < 0)
 		return (-1);
 	ft_memmove(tmp.line, tmp.line + isn(tmp.line) + 1, nread);
-	if (!(*line = ft_strjoin(*line, tmp.line)) && tmp.line[0] != '\0')
-		return (clean(*line));
+	if (tmp.line[0] != '\0')
+	{
+		if (!(*line = ft_strjoin(*line, tmp.line)))
+			return (clean(*line));
+	}
 	while (isn(tmp.line) == -1)
 	{
 		if ((nread = read(fd, tmp.line, BUFFER_SIZE)) == -1)
