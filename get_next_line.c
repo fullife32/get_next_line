@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/09 09:39:17 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/14 14:59:26 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	get_next_line(int fd, char **line)
 		if (!(*line = ft_strjoin(*line, tmp.line)))
 			return (clean(*line));
 	}
-	while (isn(tmp.line) == -1)
+	while (isn(tmp.line) == -1 || nread == 0)
 	{
 		if ((nread = read(fd, tmp.line, BUFFER_SIZE)) == -1)
 			return (clean(*line));
