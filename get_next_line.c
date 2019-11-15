@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/14 14:59:26 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:51:56 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,29 @@ int	clean(char *line)
 
 int	get_next_line(int fd, char **line)
 {
-	int				nread;
-	static t_list	tmp;
+	int			nread;
+	static char	buff[BUFFER_SIZE + 1];
 
-	nread = ft_strlen(tmp.line + isn(tmp.line)) + 1;
+	nread = 0;
 	*line = NULL;
 	if (line == NULL || fd < 0)
 		return (-1);
-	ft_memmove(tmp.line, tmp.line + isn(tmp.line) + 1, nread);
-	if (tmp.line[0] != '\0')
+	if (ft_strlen(buff, '\0') > 0)
 	{
-		if (!(*line = ft_strjoin(*line, tmp.line)))
+		if (!(*line = ft_strjoin(*line, buff)))
 			return (clean(*line));
 	}
-	while (isn(tmp.line) == -1 || nread == 0)
+	while (ft_strlen(buff, '\n') == -1)
 	{
-		if ((nread = read(fd, tmp.line, BUFFER_SIZE)) == -1)
+		if ((nread = read(fd, buff, BUFFER_SIZE)) == -1)
+			return (clean(*line));
+		buff[nread] = '\0';
+		if (!(*line = ft_strjoin(*line, buff)))
 			return (clean(*line));
 		if (nread == 0)
 			return (0);
-		tmp.line[nread] = '\0';
-		if (!(*line = ft_strjoin(*line, tmp.line)))
-			return (clean(*line));
 	}
+	nread = ft_strlen(buff + ft_strlen(buff, '\n'), '\0') + 1;
+	ft_memmove(buff, buff + ft_strlen(buff, '\n') + 1, nread);
 	return (1);
 }

@@ -6,34 +6,40 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:15:23 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/09 09:09:16 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:45:27 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+int		ft_strlen(const char *s, char c)
 {
-	size_t i;
+	int 			i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (1)
+	{
+		if (s[i] == c)
+			return (i);
+		if (s[i] == '\0')
+			return (-1);
 		i++;
-	return (i);
+	}
+	return (-1);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int				i;
 	int				j;
-	int				len;
 	char			*str;
 
+	i = s1 ? ft_strlen(s1, '\0') : 0;
+	j = s2 ? ft_strlen(s2, '\0') : 0;
+	if (!(str = malloc(sizeof(char) * (i + j + 1))))
+		return (NULL);
 	i = 0;
 	j = 0;
-	len = s1 ? ft_strlen(s1) + ft_strlen(s2) : ft_strlen(s2);
-	if (!(str = malloc(sizeof(char) * (len + 1))))
-		return (NULL);
 	while (s1 && s1[i] != '\0')
 	{
 		str[i] = s1[i];
@@ -65,18 +71,4 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		i++;
 	}
 	return (dst);
-}
-
-int		isn(char *str)
-{
-	int				i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
 }
