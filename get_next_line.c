@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/15 14:51:56 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/15 23:50:26 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	get_next_line(int fd, char **line)
 	int			nread;
 	static char	buff[BUFFER_SIZE + 1];
 
-	nread = 0;
 	*line = NULL;
+	nread = 0;
 	if (line == NULL || fd < 0)
 		return (-1);
 	if (ft_strlen(buff, '\0') > 0)

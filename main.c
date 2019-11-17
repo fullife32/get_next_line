@@ -26,7 +26,7 @@ int main(int ac, char **av)
 			free(line);
 		}
 		close(fd);
-	}	
+	}
 	// while (1);
 	return (0);
 }
