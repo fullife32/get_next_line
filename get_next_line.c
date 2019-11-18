@@ -16,34 +16,35 @@ int	clean(char *line)
 {
 	if (line)
 		free(line);
+	line = NULL;
 	return (-1);
 }
 
 int	get_next_line(int fd, char **line)
 {
-	int			nread;
-	static char	buff[BUFFER_SIZE + 1];
+	int				nread;
+	static t_list	tmp;
 
 	*line = NULL;
-	nread = 0;
-	if (line == NULL || fd < 0)
+	nread = 1;
+	if (line == NULL || fd < 0 || BUFFER_SIZE < 0)
 		return (-1);
-	if (ft_strlen(buff, '\0') > 0)
+	if (ft_strlen(tmp.buff, '\0') > 0)
 	{
-		if (!(*line = ft_strjoin(*line, buff)))
+		if (!(*line = ft_strjoin(*line, tmp.buff)))
 			return (clean(*line));
 	}
-	while (ft_strlen(buff, '\n') == -1)
+	while (ft_strlen(tmp.buff, '\n') == -1)
 	{
-		if ((nread = read(fd, buff, BUFFER_SIZE)) == -1)
+		if ((nread = read(fd, tmp.buff, BUFFER_SIZE)) < 0)
 			return (clean(*line));
-		buff[nread] = '\0';
-		if (!(*line = ft_strjoin(*line, buff)))
+		tmp.buff[nread] = '\0';
+		if (!(*line = ft_strjoin(*line, tmp.buff)))
 			return (clean(*line));
 		if (nread == 0)
 			return (0);
 	}
-	nread = ft_strlen(buff + ft_strlen(buff, '\n'), '\0') + 1;
-	ft_memmove(buff, buff + ft_strlen(buff, '\n') + 1, nread);
+	nread = ft_strlen(tmp.buff + ft_strlen(tmp.buff, '\n'), '\0') + 1;
+	ft_memmove(tmp.buff, tmp.buff + ft_strlen(tmp.buff, '\n') + 1, nread);
 	return (1);
 }

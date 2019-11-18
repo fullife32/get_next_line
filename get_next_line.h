@@ -18,6 +18,11 @@
 # include <fcntl.h>
 # include <stdio.h>
 
+typedef struct	s_list
+{
+	char	buff[BUFFER_SIZE + 1];
+}				t_list;
+
 int				ft_strlen(const char *s, char c);
 char			*ft_strjoin(char *s1, char *s2);
 void			*ft_memmove(void *dst, const void *src, size_t len);

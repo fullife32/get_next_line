@@ -14,17 +14,17 @@
 
 int		ft_strlen(const char *s, char c)
 {
-	int 			i;
+	int				i;
 
 	i = 0;
-	while (1)
+	while (s[i] != '\0')
 	{
 		if (s[i] == c)
 			return (i);
-		if (s[i] == '\0')
-			return (-1);
 		i++;
 	}
+	if (s[i] == c)
+		return (i);
 	return (-1);
 }
 
