@@ -30,10 +30,8 @@ int	get_next_line(int fd, char **line)
 	if (line == NULL || fd < 0 || BUFFER_SIZE < 0)
 		return (-1);
 	if (ft_strlen(tmp.buff, '\0') > 0)
-	{
 		if (!(*line = ft_strjoin(*line, tmp.buff)))
 			return (clean(*line));
-	}
 	while (ft_strlen(tmp.buff, '\n') == -1)
 	{
 		if ((nread = read(fd, tmp.buff, BUFFER_SIZE)) < 0)
