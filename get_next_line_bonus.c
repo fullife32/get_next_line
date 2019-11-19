@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/19 22:22:22 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/20 00:45:23 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_list	*ft_lstnewback(int fd, t_list **first)
 	t_list			*lst;
 	t_list			*new;
 
-	lst = first ? *first : NULL;
+	lst = *first;
 	if (!(new = malloc(sizeof(t_list))))
 		return (NULL);
 	new->fd = fd;
@@ -59,8 +59,6 @@ t_list	*search_fd(int fd, t_list **first)
 {
 	t_list			*lst;
 
-	if (first == NULL)
-		return (ft_lstnewback(fd, first));
 	lst = *first;
 	while (lst != NULL)
 	{
@@ -73,12 +71,11 @@ t_list	*search_fd(int fd, t_list **first)
 
 int		get_next_line(int fd, char **line)
 {
-	int				nread;
 	static t_list	*first = NULL;
 	t_list			*lst;
+	int				nread;
 
 	*line = NULL;
-	nread = 1;
 	if (line == NULL || fd < 0 || BUFFER_SIZE < 0)
 		return (-1);
 	if (!(lst = search_fd(fd, &first)))

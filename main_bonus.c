@@ -97,5 +97,6 @@ int main(int ac, char **av)
 		close(fd2);
 		close(fd3);
 	}
+	// while (1);
 	return (0);
 }
