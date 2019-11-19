@@ -17,5 +17,12 @@ int main(int ac, char **av)
 		free(line);
 		close(fd);
 	}
+	else if (ac == 1)
+		while (1)
+		{
+			get_next_line(1, &line);
+			printf("%s\n", line);
+			free(line);
+		}
 	return (0);
 }
