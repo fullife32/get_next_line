@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/21 14:46:31 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:07:04 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		ft_eof(int fd, t_list **first)
 {
 	t_list			*lst;
 	t_list			*prv;
-	t_list			*nxt;
 	int				i;
 
 	lst = *first;
@@ -49,12 +48,17 @@ int		ft_eof(int fd, t_list **first)
 		lst = lst->next;
 		i++;
 	}
-	nxt = lst->next;
-	free(lst);
 	if (i == 0)
+	{
+		printf("(((((premier maillon)))))\n");
 		*first = lst->next;
+	}
 	else
-		prv->next = nxt;
+	{
+		printf("(((((autre maillon)))))\n");
+		prv->next = lst->next;
+	}
+	free(lst);
 	return (0);
 }
 
@@ -116,7 +120,7 @@ int		get_next_line(int fd, char **line)
 		if (!(*line = ft_strjoin(*line, lst->buff)))
 			return (clean(*line, &first));
 		if (nread == 0)
-			return (0);
+			return (ft_eof(fd, &first));
 	}
 	nread = ft_strlen(lst->buff + ft_strlen(lst->buff, '\n'), '\0') + 1;
 	ft_memmove(lst->buff, lst->buff + ft_strlen(lst->buff, '\n') + 1, nread);
