@@ -9,12 +9,13 @@ int main(int ac, char **av)
 	//int fd4 = 0;
 
 	if (ac == 1)
-		while (1)
+		while (get_next_line(1, &line) > 0)
 		{
-			get_next_line(1, &line);
 			printf("%s\n", line);
 			free(line);
 		}
+		printf("%s\n", line);
+		free(line);
 	if (ac == 2)
 	{
 		fd1 = open(av[1], O_RDONLY);
