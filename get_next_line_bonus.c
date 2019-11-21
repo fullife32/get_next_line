@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/21 13:51:29 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:46:31 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		clean(char *line, t_list **first)
 	if (line)
 		free(line);
 	line = NULL;
-	if (first)
+	if (*first)
 	{
 		lst = *first;
 		while (lst != NULL)
@@ -30,8 +30,32 @@ int		clean(char *line, t_list **first)
 			lst = nxt;
 		}
 	}
-	first = NULL;
+	*first = NULL;
 	return (-1);
+}
+
+int		ft_eof(int fd, t_list **first)
+{
+	t_list			*lst;
+	t_list			*prv;
+	t_list			*nxt;
+	int				i;
+
+	lst = *first;
+	i = 0;
+	while (lst->fd != fd)
+	{
+		prv = lst;
+		lst = lst->next;
+		i++;
+	}
+	nxt = lst->next;
+	free(lst);
+	if (i == 0)
+		*first = lst->next;
+	else
+		prv->next = nxt;
+	return (0);
 }
 
 t_list	*ft_lstnewback(int fd, t_list **first)
@@ -78,7 +102,7 @@ int		get_next_line(int fd, char **line)
 
 	*line = NULL;
 	if (line == NULL || fd < 0 || BUFFER_SIZE <= 0)
-		return (-1);
+		return (clean(*line, &first));
 	if (!(lst = search_fd(fd, &first)))
 		return (clean(*line, &first));
 	if (ft_strlen(lst->buff, '\0') > 0)
