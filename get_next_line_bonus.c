@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/21 12:30:35 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/21 13:51:29 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		clean(char *line, t_list **first)
 {
 	t_list			*lst;
 	t_list			*nxt;
-	
+
 	if (line)
 		free(line);
 	line = NULL;
