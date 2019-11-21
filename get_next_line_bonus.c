@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/21 16:07:04 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/21 23:58:05 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,9 @@ int		ft_eof(int fd, t_list **first)
 		i++;
 	}
 	if (i == 0)
-	{
-		printf("(((((premier maillon)))))\n");
 		*first = lst->next;
-	}
 	else
-	{
-		printf("(((((autre maillon)))))\n");
 		prv->next = lst->next;
-	}
 	free(lst);
 	return (0);
 }
