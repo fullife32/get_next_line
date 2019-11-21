@@ -6,7 +6,7 @@
 /*   By: eassouli <eassouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:48:53 by eassouli          #+#    #+#             */
-/*   Updated: 2019/11/20 00:51:53 by eassouli         ###   ########.fr       */
+/*   Updated: 2019/11/21 11:39:52 by eassouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_list	*ft_lstnewback(int fd, t_list **first)
 	if (!(new = malloc(sizeof(t_list))))
 		return (NULL);
 	new->fd = fd;
+	new->buff[0] = '\0';
 	new->next = NULL;
 	if (*first == NULL)
 		*first = new;
