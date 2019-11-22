@@ -3,9 +3,10 @@
 int main(int ac, char **av)
 {
 	char *line = NULL;
+	int i = 1;
 	int fd1 = 0;
-	int fd2 = 0;
-	int fd3 = 0;
+	//int fd2 = 0;
+	//int fd3 = 0;
 	//int fd4 = 0;
 
 	if (ac == 1)
@@ -31,6 +32,23 @@ int main(int ac, char **av)
 		close(fd1);
 	}
 	else
+	{
+		while (--ac != 1)
+		{
+			fd1 = open(av[i], O_RDONLY);
+			while (get_next_line(fd1, &line) > 0)
+			{
+				printf("%s\n", line);
+				free(line);
+			}
+			printf("%s\n", line);
+			free(line);
+			close(fd1);
+			i++;
+		}
+	}
+	
+	/*else
 	{
 		fd1 = open(av[1], O_RDONLY);
 		fd2 = open(av[2], O_RDONLY);
@@ -111,7 +129,7 @@ int main(int ac, char **av)
 		close(fd1);
 		close(fd2);
 		close(fd3);
-	}
+	}*/
 	// while (1);
 	return (0);
 }
