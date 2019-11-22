@@ -12,14 +12,14 @@
 
 #include "get_next_line_bonus.h"
 
-int		clean(char *line, t_list **first)
+int		clean(char **line, t_list **first)
 {
 	t_list			*lst;
 	t_list			*nxt;
 
-	if (line)
-		free(line);
-	line = NULL;
+	if (*line)
+		free(*line);
+	*line = NULL;
 	if (*first)
 	{
 		lst = *first;
@@ -27,6 +27,7 @@ int		clean(char *line, t_list **first)
 		{
 			nxt = lst->next;
 			free(lst);
+			lst = NULL;
 			lst = nxt;
 		}
 	}
@@ -38,21 +39,19 @@ int		ft_eof(int fd, t_list **first)
 {
 	t_list			*lst;
 	t_list			*prv;
-	int				i;
 
 	lst = *first;
-	i = 0;
 	while (lst->fd != fd)
 	{
 		prv = lst;
 		lst = lst->next;
-		i++;
 	}
-	if (i == 0)
+	if (lst == *first)
 		*first = lst->next;
 	else
 		prv->next = lst->next;
 	free(lst);
+	lst = NULL;
 	return (0);
 }
 
@@ -100,19 +99,19 @@ int		get_next_line(int fd, char **line)
 
 	*line = NULL;
 	if (line == NULL || fd < 0 || BUFFER_SIZE <= 0)
-		return (clean(*line, &first));
+		return (clean(line, &first));
 	if (!(lst = search_fd(fd, &first)))
-		return (clean(*line, &first));
+		return (clean(line, &first));
 	if (ft_strlen(lst->buff, '\0') > 0)
 		if (!(*line = ft_strjoin(*line, lst->buff)))
-			return (clean(*line, &first));
+			return (clean(line, &first));
 	while (ft_strlen(lst->buff, '\n') == -1)
 	{
 		if ((nread = read(fd, lst->buff, BUFFER_SIZE)) < 0)
-			return (clean(*line, &first));
+			return (clean(line, &first));
 		lst->buff[nread] = '\0';
 		if (!(*line = ft_strjoin(*line, lst->buff)))
-			return (clean(*line, &first));
+			return (clean(line, &first));
 		if (nread == 0)
 			return (ft_eof(fd, &first));
 	}
